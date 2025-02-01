@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Be My Valentine?</title>
+  <style>
+    /* Global Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: linear-gradient(135deg, #4facfe, #00f2fe); /* blue gradient */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #fff;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 1em;
+      border: none;
+      border-radius: 5px;
+      background: #fff;
+      color: #4facfe;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+    button:hover {
+      background: #e0e0e0;
+      transform: scale(1.05);
+    }
+    /* Step containers (hidden by default) */
+    .step {
+      display: none;
+    }
+    .active {
+      display: block;
+    }
+    /* Blue Heart Animation */
+    .heart {
+      width: 80px;
+      height: 80px;
+      background-color: #ADD8E6; /* light blue */
+      position: relative;
+      margin: 0 auto 20px auto;
+      transform: rotate(-45deg);
+      animation: beat 1s infinite;
+    }
+    .heart::before,
+    .heart::after {
+      content: "";
+      background-color: #ADD8E6;
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      position: absolute;
+    }
+    .heart::before {
+      top: -40px;
+      left: 0;
+    }
+    .heart::after {
+      left: 40px;
+      top: 0;
+    }
+    @keyframes beat {
+      0% { transform: scale(1) rotate(-45deg); }
+      25% { transform: scale(1.1) rotate(-45deg); }
+      50% { transform: scale(1) rotate(-45deg); }
+      75% { transform: scale(1.1) rotate(-45deg); }
+      100% { transform: scale(1) rotate(-45deg); }
+    }
+    /* Simple fade-in animation for transitions */
+    .fadeIn {
+      animation: fadeIn 0.8s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Step 1: Welcome -->
+    <div id="step1" class="step active fadeIn">
+      <h1>Hi Malak!</h1>
+      <div class="heart"></div>
+      <p>I’ve got a fun surprise just for you!</p>
+      <button onclick="goToStep(2)">Let's Begin!</button>
+    </div>
+    
+    <!-- Step 2: Pick a Date -->
+    <div id="step2" class="step fadeIn">
+      <h1>Pick a Date</h1>
+      <p>When would you like to go on a cute date with me?</p>
+      <button onclick="selectDate('Friday, Feb 14')">Friday, Feb 14</button>
+      <button onclick="selectDate('Saturday, Feb 15')">Saturday, Feb 15</button>
+      <button onclick="selectDate('Sunday, Feb 16')">Sunday, Feb 16</button>
+    </div>
+    
+    <!-- Step 3: The Big Question -->
+    <div id="step3" class="step fadeIn">
+      <h1>Yay!</h1>
+      <p id="selectedDateText"></p>
+      <p>Now, one more question...</p>
+      <h2>Will you be my Valentine?</h2>
+      <button onclick="finalResponse('Yes')">Yes</button>
+      <button onclick="finalResponse('Absolutely')">Absolutely</button>
+      <button onclick="finalResponse('Of course!')">Of course!</button>
+    </div>
+    
+    <!-- Step 4: Final Response -->
+    <div id="step4" class="step fadeIn">
+      <h1>You’re the best!</h1>
+      <div class="heart"></div>
+      <p id="finalMessage"></p>
+    </div>
+  </div>
+  
+  <script>
+    // Function to show a specific step
+    function goToStep(stepNumber) {
+      var steps = document.getElementsByClassName('step');
+      for (var i = 0; i < steps.length; i++) {
+        steps[i].classList.remove('active');
+      }
+      document.getElementById('step' + stepNumber).classList.add('active');
+    }
+    
+    // Save and display the selected date, then move to the next step
+    function selectDate(date) {
+      document.getElementById('selectedDateText').innerText = "Awesome! Our date is set for " + date + ".";
+      goToStep(3);
+    }
+    
+    // Final response based on the button she clicks
+    function finalResponse(response) {
+      var message = "";
+      if (response === "Yes" || response === "Absolutely" || response === "Of course!") {
+        message = "Yay! I knew you'd say that. I can’t wait for our special day!";
+      } else {
+        message = "Hmm, something unexpected happened!";
+      }
+      document.getElementById('finalMessage').innerText = message;
+      goToStep(4);
+    }
+  </script>
+</body>
+</html>
+
